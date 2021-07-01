@@ -9,10 +9,10 @@ public class ArrayImpl implements Array {
     private int size;
     private static final float growFactor = 1.5f;
 
-//    public ArrayImpl(int size) {
-//        elements = new Object[size];
-//        this.size = size;
-//    }
+    public ArrayImpl(int size) {
+        elements = new Object[size];
+        this.size = 0;
+    }
 
     public ArrayImpl() {
         clear();
