@@ -26,9 +26,7 @@ public class ArrayImpl implements Array {
     }
 
 	@Override
-    public int size() {
-        return size;
-        }
+    public int size() { return size; }
 	
 	@Override
     public Iterator<Object> iterator() {
@@ -37,14 +35,16 @@ public class ArrayImpl implements Array {
 	
 	private class IteratorImpl implements Iterator<Object> {
 
+        int cursor = 0;
+
         @Override
         public boolean hasNext() {
-            return false;
+            return cursor < size;
         }
 
         @Override
         public Object next() {
-            return null;
+            return elements[cursor++];
         }
 
     }
@@ -77,7 +77,7 @@ public class ArrayImpl implements Array {
 	@Override
     public int indexOf(Object element) {
         for(int cursor = 0; cursor < size; ++cursor){
-            if (elements[cursor].equals(element)){
+            if (elements[cursor] == element){
                 return cursor;
             }
         }
@@ -127,6 +127,7 @@ public class ArrayImpl implements Array {
         System.out.println(a1.get(1));
         a1.set(1, 0);
         System.out.println(a1.get(1));
+        System.out.println(a1.indexOf(3));
 
     }
 
