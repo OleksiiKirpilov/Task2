@@ -51,16 +51,18 @@ public class ArrayImpl implements Array {
 	
 	@Override
     public void add(Object element) {
-        if (size < this.elements.length){
-            elements[size++] = element;
-        } else {
-            throw new NoSuchElementException();
+        if (size == this.elements.length) {
+            grow();
         }
+        elements[size++] = element;
     }
 
 	@Override
     public void set(int index, Object element) {
-        
+        if (index >= size){
+            throw new NoSuchElementException();
+        }
+        elements[index] = element;
     }
 
 	@Override
@@ -84,7 +86,12 @@ public class ArrayImpl implements Array {
 
 	@Override
     public void remove(int index) {
-        
+        if (index < size){
+            System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+            --size;
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -104,7 +111,11 @@ public class ArrayImpl implements Array {
     private void grow(){
         int newSize = (int) (size * growFactor);
         Object[] newElements = new Object[newSize];
-
+//        for (int i = 0; i < size; i++) {
+//            newElements[i] = elements[i];
+//        }
+        System.arraycopy(elements, 0, newElements, 0, size);
+        elements = newElements;
     }
     public static void main(String[] args) {
 
