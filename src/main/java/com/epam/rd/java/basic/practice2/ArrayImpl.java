@@ -7,6 +7,7 @@ public class ArrayImpl implements Array {
 
     private Object[] elements;
     private int size;
+    private static final float growFactor = 1.5f;
 
     public ArrayImpl(int size) {
         elements = new Object[size];
@@ -14,20 +15,20 @@ public class ArrayImpl implements Array {
     }
 
     public ArrayImpl() {
-        elements = new Object[10];
-        size = 0;
+        clear();
     }
 
 
     @Override
     public void clear() {
-        
+        elements = new Object[10];
+        size = 0;
     }
 
 	@Override
     public int size() {
-        return 0;
-    }
+        return size;
+        }
 	
 	@Override
     public Iterator<Object> iterator() {
@@ -100,6 +101,11 @@ public class ArrayImpl implements Array {
         return sb.toString();
     }
 
+    private void grow(){
+        int newSize = (int) (size * growFactor);
+        Object[] newElements = new Object[newSize];
+
+    }
     public static void main(String[] args) {
 
     }
