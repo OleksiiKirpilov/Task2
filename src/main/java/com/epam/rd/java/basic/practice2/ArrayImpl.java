@@ -1,14 +1,23 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayImpl implements Array {
 
     private Object[] elements;
+    private int size;
 
     public ArrayImpl(int size) {
         elements = new Object[size];
+        this.size = size;
     }
+
+    public ArrayImpl() {
+        elements = new Object[10];
+        size = 0;
+    }
+
 
     @Override
     public void clear() {
@@ -41,7 +50,11 @@ public class ArrayImpl implements Array {
 	
 	@Override
     public void add(Object element) {
-        
+        if (size < this.elements.length){
+            elements[size++] = element;
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
 	@Override
@@ -51,12 +64,21 @@ public class ArrayImpl implements Array {
 
 	@Override
     public Object get(int index) {
-        return null;
+        if (index < size){
+            return elements[index];
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
 	@Override
     public int indexOf(Object element) {
-        return 0;
+        for(int cursor = 0; cursor < size; ++cursor){
+            if (elements[cursor].equals(element)){
+                return cursor;
+            }
+        }
+        return -1;
     }
 
 	@Override
@@ -66,7 +88,16 @@ public class ArrayImpl implements Array {
 
     @Override
     public String toString() {
-        return null;
+        if (size < 1){
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder().append('[');
+        for (int i = 0; i < size; i++) {
+            sb.append(elements[i]).append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length() - 1);
+        sb.append(']');
+        return sb.toString();
     }
 
     public static void main(String[] args) {
