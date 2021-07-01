@@ -103,7 +103,7 @@ public class ArrayImpl implements Array {
         for (int i = 0; i < size; i++) {
             sb.append(elements[i]).append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length() - 1);
+        sb.delete(sb.length() - 2, sb.length());
         sb.append(']');
         return sb.toString();
     }
