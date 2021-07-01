@@ -9,10 +9,10 @@ public class ArrayImpl implements Array {
     private int size;
     private static final float growFactor = 1.5f;
 
-    public ArrayImpl(int size) {
-        elements = new Object[size];
-        this.size = size;
-    }
+//    public ArrayImpl(int size) {
+//        elements = new Object[size];
+//        this.size = size;
+//    }
 
     public ArrayImpl() {
         clear();
@@ -118,6 +118,15 @@ public class ArrayImpl implements Array {
         elements = newElements;
     }
     public static void main(String[] args) {
+        ArrayImpl a1 = new ArrayImpl();
+        a1.add(1);
+        a1.add(2);
+        a1.add(3);
+        System.out.println(a1);
+        System.out.println(a1.size());
+        System.out.println(a1.get(1));
+        a1.set(1, 0);
+        System.out.println(a1.get(1));
 
     }
 
