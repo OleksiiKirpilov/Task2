@@ -4,7 +4,13 @@ import java.util.Iterator;
 
 public class ArrayImpl implements Array {
 
-	@Override
+    private Object[] elements;
+
+    public ArrayImpl(int size) {
+        elements = new Object[size];
+    }
+
+    @Override
     public void clear() {
         
     }
