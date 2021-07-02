@@ -4,9 +4,24 @@ import java.util.Iterator;
 
 public class ListImpl implements List {
 
+    private int size = 0;
+    private Node firstNode;
+    private Node lastNode;
+
+    public ListImpl() {}
+
     @Override
     public void clear() {
-        
+        Node n = firstNode;
+        while (n != null) {
+            Node next = n.next;
+            n.element = null;
+            n.next = null;
+            n.prev = null;
+            n = next;
+        }
+        firstNode = lastNode = null;
+        size = 0;
     }
 
     @Override
@@ -18,7 +33,7 @@ public class ListImpl implements List {
         return new IteratorImpl();
     }
 
-    private class IteratorImpl implements Iterator<Object> {
+    private static class IteratorImpl implements Iterator<Object> {
 
         @Override
         public boolean hasNext() {
@@ -30,6 +45,18 @@ public class ListImpl implements List {
             return null;
         }
 
+    }
+
+    private static class Node {
+        Object element;
+        Node next;
+        Node prev;
+
+        public Node(Node prev, Object element, Node next) {
+            this.prev = prev;
+            this.element = element;
+            this.next = next;
+        }
     }
 
     @Override

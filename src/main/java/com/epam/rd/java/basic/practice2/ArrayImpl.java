@@ -7,7 +7,7 @@ public class ArrayImpl implements Array {
 
     private Object[] elements;
     private int size;
-    private static final float growFactor = 1.5f;
+    private static final float GROW_FACTOR = 1.5f;
 
     public ArrayImpl(int capacity) {
         elements = new Object[capacity];
@@ -23,9 +23,7 @@ public class ArrayImpl implements Array {
     }
 
     @Override
-    public int size() {
-        return size;
-    }
+    public int size() { return size; }
 
     @Override
     public Iterator<Object> iterator() {
@@ -42,6 +40,9 @@ public class ArrayImpl implements Array {
 
         @Override
         public Object next() {
+            if (cursor == size()){
+                throw new NoSuchElementException();
+            }
             return elements[cursor++];
         }
     }
@@ -64,11 +65,10 @@ public class ArrayImpl implements Array {
 
     @Override
     public Object get(int index) {
-        if (index < size) {
-            return elements[index];
-        } else {
+        if (index >= size){
             throw new NoSuchElementException();
         }
+        return elements[index];
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ArrayImpl implements Array {
     }
 
     private void grow() {
-        int newSize = (int) (size * growFactor);
+        int newSize = (int) (size * GROW_FACTOR);
         Object[] newElements = new Object[newSize];
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
