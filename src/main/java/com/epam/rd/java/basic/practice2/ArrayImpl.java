@@ -9,15 +9,12 @@ public class ArrayImpl implements Array {
     private int size;
     private static final float growFactor = 1.5f;
 
-    public ArrayImpl(int size) {
-        elements = new Object[size];
+    public ArrayImpl(int capacity) {
+        elements = new Object[capacity];
         this.size = 0;
     }
 
-    public ArrayImpl() {
-        clear();
-    }
-
+    public ArrayImpl() { clear(); }
 
     @Override
     public void clear() {
@@ -25,16 +22,17 @@ public class ArrayImpl implements Array {
         size = 0;
     }
 
-	@Override
-    public int size() { return size; }
-	
-	@Override
-    public Iterator<Object> iterator() {
-	    return new IteratorImpl();
+    @Override
+    public int size() {
+        return size;
     }
-	
-	private class IteratorImpl implements Iterator<Object> {
 
+    @Override
+    public Iterator<Object> iterator() {
+        return new IteratorImpl();
+    }
+
+    private class IteratorImpl implements Iterator<Object> {
         int cursor = 0;
 
         @Override
@@ -46,10 +44,9 @@ public class ArrayImpl implements Array {
         public Object next() {
             return elements[cursor++];
         }
-
     }
-	
-	@Override
+
+    @Override
     public void add(Object element) {
         if (size == this.elements.length) {
             grow();
@@ -57,46 +54,45 @@ public class ArrayImpl implements Array {
         elements[size++] = element;
     }
 
-	@Override
+    @Override
     public void set(int index, Object element) {
-        if (index >= size){
+        if (index >= size) {
             throw new NoSuchElementException();
         }
         elements[index] = element;
     }
 
-	@Override
+    @Override
     public Object get(int index) {
-        if (index < size){
+        if (index < size) {
             return elements[index];
         } else {
             throw new NoSuchElementException();
         }
     }
 
-	@Override
+    @Override
     public int indexOf(Object element) {
-        for(int cursor = 0; cursor < size; ++cursor){
-            if (elements[cursor] == element){
+        for (int cursor = 0; cursor < size; ++cursor) {
+            if (elements[cursor] == element) {
                 return cursor;
             }
         }
         return -1;
     }
 
-	@Override
+    @Override
     public void remove(int index) {
-        if (index < size){
-            System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-            --size;
-        } else {
+        if (index >= size){
             throw new NoSuchElementException();
         }
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        --size;
     }
 
     @Override
     public String toString() {
-        if (size < 1){
+        if (size < 1) {
             return "[]";
         }
         StringBuilder sb = new StringBuilder().append('[');
@@ -108,27 +104,26 @@ public class ArrayImpl implements Array {
         return sb.toString();
     }
 
-    private void grow(){
+    private void grow() {
         int newSize = (int) (size * growFactor);
         Object[] newElements = new Object[newSize];
-//        for (int i = 0; i < size; i++) {
-//            newElements[i] = elements[i];
-//        }
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
     }
+
     public static void main(String[] args) {
-        ArrayImpl a1 = new ArrayImpl();
+        ArrayImpl a1 = new ArrayImpl(4);
+        ArrayImpl a2 = new ArrayImpl();
         a1.add(1);
-        a1.add(2);
-        a1.add(3);
+        a1.add('b');
+        a1.add(1.5);
+        a2.add("s");
         System.out.println(a1);
         System.out.println(a1.size());
         System.out.println(a1.get(1));
         a1.set(1, 0);
         System.out.println(a1.get(1));
         System.out.println(a1.indexOf(3));
-
+        System.out.println(a2);
     }
-
 }
