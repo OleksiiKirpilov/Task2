@@ -6,19 +6,21 @@ import java.util.NoSuchElementException;
 public class ArrayImpl implements Array {
 
     private Object[] elements;
-    private int size;
+    private int size = 0;
     private static final float GROW_FACTOR = 1.5f;
+    private static final int INITIAL_CAPACITY = 10;
 
     public ArrayImpl(int capacity) {
         elements = new Object[capacity];
-        this.size = 0;
     }
 
     public ArrayImpl() { clear(); }
 
     @Override
     public void clear() {
-        elements = new Object[10];
+        if (elements.length > INITIAL_CAPACITY * GROW_FACTOR) {
+            elements = new Object[INITIAL_CAPACITY];
+        }
         size = 0;
     }
 
@@ -31,7 +33,7 @@ public class ArrayImpl implements Array {
     }
 
     private class IteratorImpl implements Iterator<Object> {
-        int cursor = 0;
+        private int cursor = 0;
 
         @Override
         public boolean hasNext() {
@@ -44,6 +46,11 @@ public class ArrayImpl implements Array {
                 throw new NoSuchElementException();
             }
             return elements[cursor++];
+        }
+
+        @Override
+        public void remove() {
+            ArrayImpl.this.remove(cursor);
         }
     }
 
@@ -105,8 +112,7 @@ public class ArrayImpl implements Array {
     }
 
     private void grow() {
-        int newSize = (int) (size * GROW_FACTOR);
-        Object[] newElements = new Object[newSize];
+        Object[] newElements = new Object[(int) (size * GROW_FACTOR)];
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
     }

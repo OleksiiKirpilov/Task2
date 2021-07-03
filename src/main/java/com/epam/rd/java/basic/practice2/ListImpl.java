@@ -26,7 +26,7 @@ public class ListImpl implements List {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     public Iterator<Object> iterator() {
