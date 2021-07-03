@@ -33,6 +33,7 @@ public class ArrayImpl implements Array {
     }
 
     private class IteratorImpl implements Iterator<Object> {
+
         private int cursor = 0;
 
         @Override
@@ -93,8 +94,7 @@ public class ArrayImpl implements Array {
         if (index >= size){
             throw new NoSuchElementException();
         }
-        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        --size;
+        System.arraycopy(elements, index + 1, elements, index, --size - index);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ArrayImpl implements Array {
         if (size < 1) {
             return "[]";
         }
-        StringBuilder sb = new StringBuilder().append('[');
+        StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             sb.append(elements[i]).append(", ");
         }
