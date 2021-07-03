@@ -8,8 +8,11 @@ public class ListImpl implements List {
     private int size = 0;
     private Node firstNode;
     private Node lastNode;
+    private int modCount = 0;
 
-    public ListImpl() {}
+    public ListImpl() {
+
+    }
 
     @Override
     public void clear() {
@@ -54,8 +57,8 @@ public class ListImpl implements List {
 
     private static class Node {
         Object element;
-        Node next;
         Node prev;
+        Node next;
 
         public Node(Node prev, Object element, Node next) {
             this.prev = prev;
@@ -67,43 +70,77 @@ public class ListImpl implements List {
     @Override
     public void addFirst(Object element) {
         Node newNode = new Node(null, element, firstNode);
-        firstNode.prev = newNode;
+        if (firstNode == null){
+            lastNode = newNode;
+        } else {
+            firstNode.prev = newNode;
+        }
         firstNode = newNode;
+        size++;
+        modCount++;
     }
 
     @Override
     public void addLast(Object element) {
         Node newNode = new Node(lastNode, element, null);
-        lastNode.next = newNode;
+        if (lastNode == null){
+            lastNode = newNode;
+        } else {
+            lastNode.next = newNode;
+        }
         lastNode = newNode;
+        size++;
+        modCount++;
     }
 
     @Override
     public void removeFirst() {
-        Node newFirst = firstNode.next;
-        newFirst.prev = null;
-        firstNode.next = null;
+        if (firstNode == null){
+            throw new NoSuchElementException();
+        }
+        Node next = firstNode.next;
         firstNode.element = null;
-        firstNode = newFirst;
+        firstNode.next = null;
+        firstNode = next;
+        if (next == null)
+            lastNode = null;
+        else
+            next.prev = null;
+        size--;
+        modCount++;
     }
 
     @Override
     public void removeLast() {
-        Node newLast = lastNode.prev;
-        newLast.next = null;
-        lastNode.prev = null;
+        if (lastNode == null){
+            throw new NoSuchElementException();
+        }
+        Node prev = lastNode.prev;
         lastNode.element = null;
-        lastNode = newLast;
+        lastNode.next = null;
+        lastNode = prev;
+        if (prev == null)
+            firstNode = null;
+        else
+            prev.next = null;
+        size--;
+        modCount++;
     }
 
     @Override
     public Object getFirst() {
-        return null;
+        if (firstNode == null){
+            throw new NoSuchElementException();
+        }
+        return firstNode.element;
     }
 
     @Override
     public Object getLast() {
-        return null;
+        if (lastNode == null){
+            throw new NoSuchElementException();
+        }
+        return lastNode.element;
     }
 
     @Override
@@ -118,10 +155,25 @@ public class ListImpl implements List {
 
     @Override
     public String toString() {
-        return null;
+        if (size() == 0) {
+            return "[]";
+        }
+        Iterator<Object> i = iterator();
+        StringBuilder sb = new StringBuilder("[");
+        while (i.hasNext()) {
+            sb.append(i.next()).append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append(']');
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-
+        ListImpl l1 = new ListImpl();
+        l1.addLast(1);
+        l1.addLast(2);
+        System.out.println(l1);
+        l1.addFirst("Q");
+        System.out.println(l1);
     }
 }

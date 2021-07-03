@@ -35,6 +35,7 @@ public class ArrayImpl implements Array {
     private class IteratorImpl implements Iterator<Object> {
 
         private int cursor = 0;
+        private boolean ready = false;
 
         @Override
         public boolean hasNext() {
@@ -74,7 +75,7 @@ public class ArrayImpl implements Array {
     @Override
     public Object get(int index) {
         if (index >= size){
-            throw new NoSuchElementException();
+            throw new IndexOutOfBoundsException();
         }
         return elements[index];
     }
