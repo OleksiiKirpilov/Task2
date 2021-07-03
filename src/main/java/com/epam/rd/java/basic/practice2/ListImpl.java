@@ -1,6 +1,5 @@
 package com.epam.rd.java.basic.practice2;
 
-import java.sql.SQLOutput;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -39,20 +38,44 @@ public class ListImpl implements List {
     }
 
     private class IteratorImpl implements Iterator<Object> {
-        Node cursor = firstNode;
+        private int cursor;
+        private Node node;
+        private Node last;
+
+        public IteratorImpl() {
+            node = (size == 0) ? null : firstNode;
+            cursor = 0;
+        }
 
         @Override
         public boolean hasNext() {
-            return cursor.next != null;
+            return cursor < size;
         }
 
         @Override
         public Object next() {
-            if (cursor.next == null){
+            if (!hasNext()){
                 throw new NoSuchElementException();
             }
-            cursor = cursor.next;
-            return cursor.element;
+            last = node;
+            node = node.next;
+            cursor++;
+            return last.element;
+        }
+
+        @Override
+        public void remove() {
+            if (last == null){
+                throw new IllegalStateException();
+            }
+            Node newNext = last.next;
+            ListImpl.this.unlink(last);
+            if (node == last){
+                node = newNext;
+            } else {
+                cursor--;
+            }
+            last = null;
         }
     }
 
@@ -85,7 +108,7 @@ public class ListImpl implements List {
     public void addLast(Object element) {
         Node newNode = new Node(lastNode, element, null);
         if (lastNode == null){
-            lastNode = newNode;
+            firstNode = newNode;
         } else {
             lastNode.next = newNode;
         }
@@ -124,6 +147,26 @@ public class ListImpl implements List {
             firstNode = null;
         else
             prev.next = null;
+        size--;
+        modCount++;
+    }
+
+    private void unlink(Node x){
+        Node next = x.next;
+        Node prev = x.prev;
+        if (prev == null) {
+            firstNode = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+        if (next == null) {
+            lastNode = prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+        x.element = null;
         size--;
         modCount++;
     }
