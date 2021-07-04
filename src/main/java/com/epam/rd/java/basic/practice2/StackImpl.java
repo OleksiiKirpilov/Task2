@@ -28,7 +28,6 @@ public class StackImpl implements Stack {
     private class IteratorImpl implements Iterator<Object> {
 
         private int cursor = size();
-                //(size() > 0) ? (size() - 1) : 0;
 
         @Override
         public boolean hasNext() {
