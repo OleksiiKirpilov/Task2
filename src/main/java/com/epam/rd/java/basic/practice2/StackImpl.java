@@ -46,9 +46,9 @@ public class StackImpl implements Stack {
     @Override
     public Object pop() {
         Object value = list.getLast();
-        if (value != null) {
+        //if (value != null) {
             list.removeLast();
-        }
+        //}
         return value;
     }
 
