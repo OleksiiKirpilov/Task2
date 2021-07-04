@@ -8,11 +8,7 @@ public class ListImpl implements List {
     private int size = 0;
     private Node firstNode;
     private Node lastNode;
-
-    public ListImpl() {
-
-    }
-
+    
     @Override
     public void clear() {
         Node n = firstNode;
