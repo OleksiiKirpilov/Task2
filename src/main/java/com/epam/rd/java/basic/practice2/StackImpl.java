@@ -21,15 +21,11 @@ public class StackImpl implements Stack {
     }
 
     public Iterator<Object> iterator() {
-        //return new IteratorImpl();
         return list.iterator();
+        //        return new IteratorImpl();
     }
 
 //    private class IteratorImpl implements Iterator<Object> {
-//
-//        public IteratorImpl() {
-//
-//        }
 //
 //        @Override
 //        public boolean hasNext() {
@@ -45,7 +41,7 @@ public class StackImpl implements Stack {
 
     @Override
     public void push(Object element) {
-        list.addLast(element);
+        list.addFirst(element);
     }
 
     @Override
@@ -54,13 +50,13 @@ public class StackImpl implements Stack {
             return null;
         }
         Object value = top();
-        list.removeLast();
+        list.removeFirst();
         return value;
     }
 
     @Override
     public Object top() {
-        return list.getLast();
+        return list.getFirst();
     }
 
     @Override
