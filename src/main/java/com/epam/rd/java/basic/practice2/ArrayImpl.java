@@ -35,25 +35,29 @@ public class ArrayImpl implements Array {
     private class IteratorImpl implements Iterator<Object> {
 
         private int cursor = 0;
-        private boolean ready = false;
+        private int last = -1;
 
         @Override
         public boolean hasNext() {
-            return cursor < size;
+            return cursor != size;
         }
 
         @Override
         public Object next() {
-            if (cursor == size()){
+            if (cursor >= size()) {
                 throw new NoSuchElementException();
             }
+            last = cursor;
             return elements[cursor++];
         }
 
         @Override
         public void remove() {
-            ArrayImpl.this.remove(cursor);
+            ArrayImpl.this.remove(last);
+            cursor = last;
+            last = -1;
         }
+
     }
 
     @Override
@@ -93,7 +97,7 @@ public class ArrayImpl implements Array {
     @Override
     public void remove(int index) {
         if (index >= size){
-            throw new NoSuchElementException();
+            throw new IndexOutOfBoundsException();
         }
         System.arraycopy(elements, index + 1, elements, index, --size - index);
     }
@@ -113,7 +117,8 @@ public class ArrayImpl implements Array {
     }
 
     private void grow() {
-        Object[] newElements = new Object[(int) (size * GROW_FACTOR)];
+        int newSize = (size > 2) ? (int) (size * GROW_FACTOR) : 3;
+        Object[] newElements = new Object[newSize];
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
     }

@@ -8,7 +8,6 @@ public class ListImpl implements List {
     private int size = 0;
     private Node firstNode;
     private Node lastNode;
-    private int modCount = 0;
 
     public ListImpl() {
 
@@ -91,6 +90,8 @@ public class ListImpl implements List {
         }
     }
 
+    public enum EmptyObject { INSTANCE }
+
     @Override
     public void addFirst(Object element) {
         Node newNode = new Node(null, element, firstNode);
@@ -101,7 +102,6 @@ public class ListImpl implements List {
         }
         firstNode = newNode;
         size++;
-        modCount++;
     }
 
     @Override
@@ -114,7 +114,6 @@ public class ListImpl implements List {
         }
         lastNode = newNode;
         size++;
-        modCount++;
     }
 
     @Override
@@ -131,7 +130,6 @@ public class ListImpl implements List {
         else
             next.prev = null;
         size--;
-        modCount++;
     }
 
     @Override
@@ -148,7 +146,6 @@ public class ListImpl implements List {
         else
             prev.next = null;
         size--;
-        modCount++;
     }
 
     private void unlink(Node x){
@@ -168,7 +165,6 @@ public class ListImpl implements List {
         }
         x.element = null;
         size--;
-        modCount++;
     }
 
     @Override
@@ -189,12 +185,18 @@ public class ListImpl implements List {
 
     @Override
     public Object search(Object element) {
-        return null;
+        Node n = findByValue(element);
+        return (n == null) ? EmptyObject.INSTANCE : n.element;
     }
 
     @Override
     public boolean remove(Object element) {
-        return false;
+        Node n = findByValue(element);
+        if (n == null) {
+            return false;
+        }
+        unlink(n);
+        return true;
     }
 
     @Override
@@ -210,6 +212,15 @@ public class ListImpl implements List {
         sb.delete(sb.length() - 2, sb.length());
         sb.append(']');
         return sb.toString();
+    }
+
+    private Node findByValue(Object v) {
+        for (Node n = firstNode; n != null; n = n.next) {
+            if ((v == null && n.element == null) || (v != null && v.equals(n.element))) {
+                return n;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
