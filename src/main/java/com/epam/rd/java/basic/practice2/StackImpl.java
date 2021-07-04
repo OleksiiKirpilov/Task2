@@ -52,7 +52,7 @@ public class StackImpl implements Stack {
 
     @Override
     public Object top() {
-        return null;
+        return list.getLast();
     }
 
     @Override

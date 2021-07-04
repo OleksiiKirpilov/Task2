@@ -4,18 +4,20 @@ import java.util.Iterator;
 
 public class QueueImpl implements Queue {
 
+    ListImpl list;
+
     public QueueImpl() {
-        
+        list = new ListImpl();
     }
 
     @Override
     public void clear() {
-        
+        list.clear();
     }
 
     @Override
     public int size() {
-        return 0;
+        return list.size();
     }
 
     public Iterator<Object> iterator() {
@@ -38,26 +40,33 @@ public class QueueImpl implements Queue {
 
     @Override
     public void enqueue(Object element) {
-        
+        list.addLast(element);
     }
 
     @Override
     public Object dequeue() {
-        return null;
+        Object val = list.getFirst();
+        list.removeFirst();
+        return val;
     }
 
     @Override
     public Object top() {
-        return null;
+        return list.getLast();
     }
 
     @Override
     public String toString() {
-        return null;
+        return list.toString();
     }
 
     public static void main(String[] args) {
-
+        QueueImpl q1 = new QueueImpl();
+        q1.enqueue("a");
+        q1.enqueue("b");
+        q1.enqueue("c");
+        q1.dequeue();
+        System.out.println(q1);
     }
 
 }
