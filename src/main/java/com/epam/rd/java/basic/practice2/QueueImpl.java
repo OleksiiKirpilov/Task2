@@ -46,7 +46,7 @@ public class QueueImpl implements Queue {
     @Override
     public Object dequeue() {
         Object val = queue.getFirst();
-        if (val != null) {
+        if (size() > 0) {
             queue.removeFirst();
         }
         return val;

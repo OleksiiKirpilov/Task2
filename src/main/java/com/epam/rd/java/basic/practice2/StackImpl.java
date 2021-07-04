@@ -21,22 +21,27 @@ public class StackImpl implements Stack {
     }
 
     public Iterator<Object> iterator() {
-        return new IteratorImpl();
+        //return new IteratorImpl();
+        return list.iterator();
     }
 
-    private class IteratorImpl implements Iterator<Object> {
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public Object next() {
-            return null;
-        }
-
-    }
+//    private class IteratorImpl implements Iterator<Object> {
+//
+//        public IteratorImpl() {
+//
+//        }
+//
+//        @Override
+//        public boolean hasNext() {
+//            return false;
+//        }
+//
+//        @Override
+//        public Object next() {
+//            return null;
+//        }
+//
+//    }
 
     @Override
     public void push(Object element) {
