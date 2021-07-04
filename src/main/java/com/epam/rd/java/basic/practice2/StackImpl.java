@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class StackImpl implements Stack {
 
-    private ArrayImpl array;
+    private final ArrayImpl array;
 
     public StackImpl() {
         array = new ArrayImpl();
@@ -71,18 +71,34 @@ public class StackImpl implements Stack {
     }
 
     public static void main(String[] args) {
+        System.out.println("StackImpl() demo:");
         StackImpl s1 = new StackImpl();
-        s1.push("a");
-        s1.push("b");
-        s1.push("c");
+        StackImpl s2 = new StackImpl();
+        // push() method
+        s1.push(1);
+        s1.push('b');
         s1.push(null);
-        System.out.println(s1);
-
-        StringBuilder sb = new StringBuilder();
-        for (Object o : s1) {
-            sb.append(o);
+        s1.push(1.5);
+        System.out.println("s1 = " + s1);
+        s2.push("s");
+        System.out.println("s2 = " + s2);
+        // clear() method
+        s2.clear();
+        System.out.println("s2.clear() = " + s2);
+        // top() method
+        System.out.println("s1.top() = " + s1.top());
+        // size() method
+        System.out.println("s1.size() = " + s1.size());
+        // pop() method
+        System.out.println("s1.pop() = " + s1.pop());
+        System.out.println("s1 = " + s1);
+        // iterator() hasNext() & next() methods
+        Iterator i = s1.iterator();
+        Object tempObject = new Object();
+        while (i.hasNext()){
+            tempObject = i.next();
         }
-        System.out.println(sb);
+        System.out.println("s1 iterator().next() = " + tempObject);
     }
 
 }

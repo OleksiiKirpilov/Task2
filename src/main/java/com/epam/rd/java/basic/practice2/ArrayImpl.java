@@ -53,7 +53,7 @@ public class ArrayImpl implements Array {
         @Override
         public Object next() {
             if (cursor >= size()) {
-                throw new NoSuchElementException();
+                throw new NoSuchElementException(Integer.toString(cursor));
             }
             last = cursor;
             return elements[cursor++];
@@ -61,6 +61,9 @@ public class ArrayImpl implements Array {
 
         @Override
         public void remove() {
+            if (last == -1){
+                throw new IllegalStateException();
+            }
             ArrayImpl.this.remove(last);
             cursor = last;
             last = -1;
@@ -79,7 +82,7 @@ public class ArrayImpl implements Array {
     @Override
     public void set(int index, Object element) {
         if (index >= size) {
-            throw new NoSuchElementException();
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
         elements[index] = element;
     }
@@ -87,7 +90,7 @@ public class ArrayImpl implements Array {
     @Override
     public Object get(int index) {
         if (index >= size) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
         return elements[index];
     }
@@ -95,7 +98,9 @@ public class ArrayImpl implements Array {
     @Override
     public int indexOf(Object element) {
         for (int cursor = 0; cursor < size; ++cursor) {
-            if (elements[cursor] == element) {
+            Object e = elements[cursor];
+            if ((element == null && e == null)
+                || (element != null && element.equals(e))) {
                 return cursor;
             }
         }
@@ -105,7 +110,7 @@ public class ArrayImpl implements Array {
     @Override
     public void remove(int index) {
         if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Integer.toString(index));
         }
         System.arraycopy(elements, index + 1, elements, index, --size - index);
     }
@@ -132,27 +137,37 @@ public class ArrayImpl implements Array {
     }
 
     public static void main(String[] args) {
+        System.out.println("ArrayImpl() demo:");
         ArrayImpl a1 = new ArrayImpl(4);
         ArrayImpl a2 = new ArrayImpl();
+        // add() method
         a1.add(1);
         a1.add('b');
+        a1.add(null);
         a1.add(1.5);
         a2.add("s");
-        System.out.println(a1);
-        System.out.println(a1.size());
-        System.out.println(a1.get(1));
+        System.out.println("a2 = " + a2);
+        // clear() method
+        a2.clear();
+        System.out.println("a2.clear() = " + a2);
+        // set() method
         a1.set(1, 0);
-        System.out.println(a1.get(1));
-        System.out.println(a1.indexOf(3));
-        System.out.println(a2);
-        System.out.println(a1);
-
-        StringBuilder sb = new StringBuilder();
-        for (Object o : a1) {
-            sb.append(o);
+        System.out.println("a1 = " + a1);
+        // size() method
+        System.out.println("a1.size() = " + a1.size());
+        // get() method
+        System.out.println("a1.get(1) = " + a1.get(1));
+        // indexOf() method
+        System.out.println("a1.indexOf(3) = " + a1.indexOf(3));
+        // remove() method
+        a1.remove(1);
+        System.out.println("a1.remove(1) = " + a1);
+        // all iterator() methods
+        Iterator i = a1.iterator();
+        while (i.hasNext()){
+            i.next();
         }
-        System.out.println(sb);
-
-
+        i.remove();
+        System.out.println("a1 iterator().remove() = " + a1);
     }
 }

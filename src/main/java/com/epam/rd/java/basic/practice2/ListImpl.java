@@ -8,7 +8,7 @@ public class ListImpl implements List {
     private int size = 0;
     private Node firstNode;
     private Node lastNode;
-    
+
     @Override
     public void clear() {
         Node n = firstNode;
@@ -50,7 +50,7 @@ public class ListImpl implements List {
         @Override
         public Object next() {
             if (!hasNext()) {
-                throw new NoSuchElementException();
+                throw new NoSuchElementException(Integer.toString(cursor));
             }
             last = node;
             node = node.next;
@@ -218,11 +218,38 @@ public class ListImpl implements List {
     }
 
     public static void main(String[] args) {
+        System.out.println("ListImpl() demo:");
         ListImpl l1 = new ListImpl();
-        l1.addLast(1);
-        l1.addLast(2);
-        System.out.println(l1);
-        l1.addFirst("Q");
-        System.out.println(l1);
+        ListImpl l2 = new ListImpl();
+        // addFirst() & addLast() methods
+        l1.addLast('r');
+        l1.addLast(null);
+        l1.addLast(1.6);
+        l1.addFirst(2);
+        l2.addFirst("ss");
+        System.out.println("l2 = " + l2);
+        // clear() method
+        l2.clear();
+        System.out.println("l2.clear() = " + l2);
+        // size() method
+        System.out.println("l1.size() = " + l1.size());
+        // getFirst() method
+        System.out.println("l1.getFirst(1) = " + l1.getFirst());
+        // getLast() method
+        System.out.println("l1.getFirst(1) = " + l1.getFirst());
+        // search() method doesn't make any sense
+        System.out.println("l1.search(null) = " + l1.search(null));
+        // remove() method
+        l1.removeFirst();
+        System.out.println("l1.removeFirst() = " + l1);
+        l1.removeLast();
+        System.out.println("l1.removeLast() = " + l1);
+        // all iterator() methods
+        Iterator i = l1.iterator();
+        while (i.hasNext()){
+            i.next();
+        }
+        i.remove();
+        System.out.println("l1 iterator().remove() = " + l1);
     }
 }

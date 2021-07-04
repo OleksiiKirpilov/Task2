@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class QueueImpl implements Queue {
 
-    ListImpl queue;
+    private final ListImpl queue;
 
     public QueueImpl() {
         queue = new ListImpl();
@@ -49,12 +49,34 @@ public class QueueImpl implements Queue {
     }
 
     public static void main(String[] args) {
+        System.out.println("QueueImpl() demo:");
         QueueImpl q1 = new QueueImpl();
-        q1.enqueue("a");
-        q1.enqueue("b");
-        q1.enqueue("c");
-        q1.dequeue();
-        System.out.println(q1);
+        QueueImpl q2 = new QueueImpl();
+        // enqueue() method
+        q1.enqueue(1);
+        q1.enqueue('b');
+        q1.enqueue(null);
+        q1.enqueue(1.5);
+        q2.enqueue("s");
+        System.out.println("q2 = " + q2);
+        // clear() method
+        q2.clear();
+        System.out.println("q2.clear() = " + q2);
+        // top() method
+        q1.top();
+        System.out.println("q1 = " + q1);
+        // size() method
+        System.out.println("q1.size() = " + q1.size());
+        // dequeue() method
+        System.out.println("q1.dequeue() = " + q1.dequeue());
+        System.out.println("q1 = " + q1);
+        // all iterator() methods
+        Iterator i = q1.iterator();
+        while (i.hasNext()){
+            i.next();
+        }
+        i.remove();
+        System.out.println("q1 iterator().remove() = " + q1);
     }
 
 }
