@@ -49,9 +49,7 @@ public class StackImpl implements Stack {
             return null;
         }
         Object value = top();
-        if (value != null) {
-            list.removeLast();
-        }
+        list.removeLast();
         return value;
     }
 
