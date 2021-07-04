@@ -2,7 +2,7 @@ package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
 
-public class StackImpl implements Stack {
+public class StackImpl extends ListImpl implements Stack {
 
     @Override
     public void clear() {
@@ -49,10 +49,14 @@ public class StackImpl implements Stack {
 
     @Override
     public String toString() {
-        return null;
+        return super.toString();
     }
 
     public static void main(String[] args) {
+        StackImpl s1 = new StackImpl();
+        s1.addLast(1);
+        s1.addLast(2);
+        System.out.println(s1);
 
     }
 

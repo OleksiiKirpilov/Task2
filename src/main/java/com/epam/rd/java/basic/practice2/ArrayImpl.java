@@ -14,7 +14,9 @@ public class ArrayImpl implements Array {
         elements = new Object[capacity];
     }
 
-    public ArrayImpl() { clear(); }
+    public ArrayImpl() {
+        this(INITIAL_CAPACITY);
+    }
 
     @Override
     public void clear() {
@@ -29,7 +31,9 @@ public class ArrayImpl implements Array {
     }
 
     @Override
-    public int size() { return size; }
+    public int size() {
+        return size;
+    }
 
     @Override
     public Iterator<Object> iterator() {
@@ -82,7 +86,7 @@ public class ArrayImpl implements Array {
 
     @Override
     public Object get(int index) {
-        if (index >= size){
+        if (index >= size) {
             throw new IndexOutOfBoundsException();
         }
         return elements[index];
@@ -100,7 +104,7 @@ public class ArrayImpl implements Array {
 
     @Override
     public void remove(int index) {
-        if (index >= size){
+        if (index >= size) {
             throw new IndexOutOfBoundsException();
         }
         System.arraycopy(elements, index + 1, elements, index, --size - index);

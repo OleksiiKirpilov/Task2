@@ -53,7 +53,7 @@ public class ListImpl implements List {
 
         @Override
         public Object next() {
-            if (!hasNext()){
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             last = node;
@@ -64,12 +64,12 @@ public class ListImpl implements List {
 
         @Override
         public void remove() {
-            if (last == null){
+            if (last == null) {
                 throw new IllegalStateException();
             }
             Node newNext = last.next;
             ListImpl.this.unlink(last);
-            if (node == last){
+            if (node == last) {
                 node = newNext;
             } else {
                 cursor--;
@@ -93,7 +93,7 @@ public class ListImpl implements List {
     @Override
     public void addFirst(Object element) {
         Node newNode = new Node(null, element, firstNode);
-        if (firstNode == null){
+        if (firstNode == null) {
             lastNode = newNode;
         } else {
             firstNode.prev = newNode;
@@ -105,7 +105,7 @@ public class ListImpl implements List {
     @Override
     public void addLast(Object element) {
         Node newNode = new Node(lastNode, element, null);
-        if (lastNode == null){
+        if (lastNode == null) {
             firstNode = newNode;
         } else {
             lastNode.next = newNode;
@@ -116,7 +116,7 @@ public class ListImpl implements List {
 
     @Override
     public void removeFirst() {
-        if (firstNode == null){
+        if (firstNode == null) {
             throw new NoSuchElementException();
         }
         Node next = firstNode.next;
@@ -132,7 +132,7 @@ public class ListImpl implements List {
 
     @Override
     public void removeLast() {
-        if (lastNode == null){
+        if (lastNode == null) {
             throw new NoSuchElementException();
         }
         Node prev = lastNode.prev;
@@ -146,7 +146,7 @@ public class ListImpl implements List {
         size--;
     }
 
-    private void unlink(Node x){
+    private void unlink(Node x) {
         Node next = x.next;
         Node prev = x.prev;
         if (prev == null) {
@@ -167,7 +167,7 @@ public class ListImpl implements List {
 
     @Override
     public Object getFirst() {
-        if (firstNode == null){
+        if (firstNode == null) {
             return null;
         }
         return firstNode.element;
@@ -175,7 +175,7 @@ public class ListImpl implements List {
 
     @Override
     public Object getLast() {
-        if (lastNode == null){
+        if (lastNode == null) {
             return null;
         }
         return lastNode.element;
