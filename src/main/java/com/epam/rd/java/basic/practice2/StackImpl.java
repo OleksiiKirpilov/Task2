@@ -45,10 +45,13 @@ public class StackImpl implements Stack {
 
     @Override
     public Object pop() {
-        Object value = list.getLast();
-        //if (value != null) {
+        if (size() == 0) {
+            return null;
+        }
+        Object value = top();
+        if (value != null) {
             list.removeLast();
-        //}
+        }
         return value;
     }
 
