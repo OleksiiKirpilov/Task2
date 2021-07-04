@@ -2,16 +2,22 @@ package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
 
-public class StackImpl extends ListImpl implements Stack {
+public class StackImpl implements Stack {
+
+    private ListImpl list;
+
+    public StackImpl() {
+        list = new ListImpl();
+    }
 
     @Override
     public void clear() {
-        
+        list.clear();
     }
 
     @Override
     public int size() {
-        return 0;
+        return list.size();
     }
 
     public Iterator<Object> iterator() {
@@ -34,12 +40,14 @@ public class StackImpl extends ListImpl implements Stack {
 
     @Override
     public void push(Object element) {
-        
+        list.addLast(element);
     }
 
     @Override
     public Object pop() {
-        return null;
+        Object value = list.getLast();
+        list.removeLast();
+        return value;
     }
 
     @Override
@@ -49,13 +57,13 @@ public class StackImpl extends ListImpl implements Stack {
 
     @Override
     public String toString() {
-        return super.toString();
+        return list.toString();
     }
 
     public static void main(String[] args) {
         StackImpl s1 = new StackImpl();
-        s1.addLast(1);
-        s1.addLast(2);
+        s1.push(1);
+        s1.push(2);
         System.out.println(s1);
 
     }
