@@ -72,7 +72,7 @@ public class QueueImpl implements Queue {
         System.out.println("q1 = " + q1);
         // all iterator() methods
         Iterator i = q1.iterator();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             i.next();
         }
         i.remove();

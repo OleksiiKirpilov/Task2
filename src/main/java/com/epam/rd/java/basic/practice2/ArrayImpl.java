@@ -61,7 +61,7 @@ public class ArrayImpl implements Array {
 
         @Override
         public void remove() {
-            if (last == -1){
+            if (last == -1) {
                 throw new IllegalStateException();
             }
             ArrayImpl.this.remove(last);
@@ -100,7 +100,7 @@ public class ArrayImpl implements Array {
         for (int cursor = 0; cursor < size; ++cursor) {
             Object e = elements[cursor];
             if ((element == null && e == null)
-                || (element != null && element.equals(e))) {
+                    || (element != null && element.equals(e))) {
                 return cursor;
             }
         }
@@ -164,7 +164,7 @@ public class ArrayImpl implements Array {
         System.out.println("a1.remove(1) = " + a1);
         // all iterator() methods
         Iterator i = a1.iterator();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             i.next();
         }
         i.remove();

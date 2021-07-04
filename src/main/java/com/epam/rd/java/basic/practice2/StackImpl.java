@@ -95,7 +95,7 @@ public class StackImpl implements Stack {
         // iterator() hasNext() & next() methods
         Iterator i = s1.iterator();
         Object tempObject = new Object();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             tempObject = i.next();
         }
         System.out.println("s1 iterator().next() = " + tempObject);

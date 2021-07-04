@@ -33,12 +33,13 @@ public class ListImpl implements List {
     }
 
     private class IteratorImpl implements Iterator<Object> {
+
         private int cursor;
         private Node node;
         private Node last;
 
         public IteratorImpl() {
-            node = (size == 0) ? null : firstNode;
+            node = firstNode;
             cursor = 0;
         }
 
@@ -75,6 +76,7 @@ public class ListImpl implements List {
     }
 
     private static class Node {
+
         Object element;
         Node prev;
         Node next;
@@ -210,7 +212,8 @@ public class ListImpl implements List {
 
     private Node findByValue(Object v) {
         for (Node n = firstNode; n != null; n = n.next) {
-            if ((v == null && n.element == null) || (v != null && v.equals(n.element))) {
+            if ((v == null && n.element == null) ||
+                    (v != null && v.equals(n.element))) {
                 return n;
             }
         }
@@ -246,7 +249,7 @@ public class ListImpl implements List {
         System.out.println("l1.removeLast() = " + l1);
         // all iterator() methods
         Iterator i = l1.iterator();
-        while (i.hasNext()){
+        while (i.hasNext()) {
             i.next();
         }
         i.remove();
