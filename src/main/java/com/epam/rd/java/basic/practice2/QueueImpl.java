@@ -54,7 +54,7 @@ public class QueueImpl implements Queue {
 
     @Override
     public Object top() {
-        return queue.getLast();
+        return queue.getFirst();
     }
 
     @Override
