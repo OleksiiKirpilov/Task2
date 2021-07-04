@@ -21,22 +21,23 @@ public class QueueImpl implements Queue {
     }
 
     public Iterator<Object> iterator() {
-        return new IteratorImpl();
+        return queue.iterator();
+        //return new IteratorImpl();
     }
 
-    private class IteratorImpl implements Iterator<Object> {
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public Object next() {
-            return null;
-        }
-
-    }
+//    private class IteratorImpl implements Iterator<Object> {
+//
+//        @Override
+//        public boolean hasNext() {
+//            return false;
+//        }
+//
+//        @Override
+//        public Object next() {
+//            return null;
+//        }
+//
+//    }
 
     @Override
     public void enqueue(Object element) {
