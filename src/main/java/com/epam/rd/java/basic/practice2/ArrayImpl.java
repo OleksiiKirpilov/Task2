@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class ArrayImpl implements Array {
 
-    private Object[] elements;
+    Object[] elements;
     private int size = 0;
     private static final float GROW_FACTOR = 1.5f;
     private static final int INITIAL_CAPACITY = 10;
