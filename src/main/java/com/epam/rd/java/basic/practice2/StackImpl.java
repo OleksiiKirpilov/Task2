@@ -27,8 +27,8 @@ public class StackImpl implements Stack {
 
     private class IteratorImpl implements Iterator<Object> {
 
-        private int cursor = (size() > 0) ? (size() - 1) : 0;
-        private int last = -1;
+        private int cursor = size();
+                //(size() > 0) ? (size() - 1) : 0;
 
         @Override
         public boolean hasNext() {
@@ -40,8 +40,7 @@ public class StackImpl implements Stack {
             if (cursor == 0) {
                 throw new NoSuchElementException();
             }
-            last = cursor;
-            return array.elements[cursor--];
+            return array.elements[--cursor];
         }
 
     }
@@ -70,24 +69,21 @@ public class StackImpl implements Stack {
     @Override
     public String toString() {
         return array.toString();
-        //        if (size() == 0) {
-//            return "[]";
-//        }
-//        StringBuilder sb = new StringBuilder("[");
-//        for (i.hasNext()) {
-//            sb.append(i.next()).append(", ");
-//        }
-//        sb.delete(sb.length() - 2, sb.length());
-//        sb.append(']');
-//        return sb.toString();
     }
 
     public static void main(String[] args) {
         StackImpl s1 = new StackImpl();
-        s1.push(1);
-        s1.push(2);
+        s1.push("a");
+        s1.push("b");
+        s1.push("c");
+        s1.push(null);
         System.out.println(s1);
 
+        StringBuilder sb = new StringBuilder();
+        for (Object o : s1) {
+            sb.append(o);
+        }
+        System.out.println(sb);
     }
 
 }

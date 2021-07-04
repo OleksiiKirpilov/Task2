@@ -145,5 +145,14 @@ public class ArrayImpl implements Array {
         System.out.println(a1.get(1));
         System.out.println(a1.indexOf(3));
         System.out.println(a2);
+        System.out.println(a1);
+
+        StringBuilder sb = new StringBuilder();
+        for (Object o : a1) {
+            sb.append(o);
+        }
+        System.out.println(sb);
+
+
     }
 }
