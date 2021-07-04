@@ -56,7 +56,8 @@ public class StackImpl implements Stack {
 
     @Override
     public Object top() {
-        return array.get(size() - 1);
+        int index = size() - 1;
+        return (index < 0) ? null : array.get(size() - 1);
     }
 
     @Override
