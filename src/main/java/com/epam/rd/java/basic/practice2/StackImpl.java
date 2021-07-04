@@ -4,24 +4,24 @@ import java.util.Iterator;
 
 public class StackImpl implements Stack {
 
-    private ListImpl list;
+    private ArrayImpl array;
 
     public StackImpl() {
-        list = new ListImpl();
+        array = new ArrayImpl();
     }
 
     @Override
     public void clear() {
-        list.clear();
+        array.clear();
     }
 
     @Override
     public int size() {
-        return list.size();
+        return array.size();
     }
 
     public Iterator<Object> iterator() {
-        return list.iterator();
+        return array.iterator();
         //        return new IteratorImpl();
     }
 
@@ -41,7 +41,7 @@ public class StackImpl implements Stack {
 
     @Override
     public void push(Object element) {
-        list.addFirst(element);
+        array.add(element);
     }
 
     @Override
@@ -50,18 +50,28 @@ public class StackImpl implements Stack {
             return null;
         }
         Object value = top();
-        list.removeFirst();
+        array.remove(size() - 1);
         return value;
     }
 
     @Override
     public Object top() {
-        return list.getFirst();
+        return array.get(size() - 1);
     }
 
     @Override
     public String toString() {
-        return list.toString();
+        return array.toString();
+        //        if (size() == 0) {
+//            return "[]";
+//        }
+//        StringBuilder sb = new StringBuilder("[");
+//        for (i.hasNext()) {
+//            sb.append(i.next()).append(", ");
+//        }
+//        sb.delete(sb.length() - 2, sb.length());
+//        sb.append(']');
+//        return sb.toString();
     }
 
     public static void main(String[] args) {
