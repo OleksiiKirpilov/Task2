@@ -20,6 +20,10 @@ public class ArrayImpl implements Array {
     public void clear() {
         if (elements.length > INITIAL_CAPACITY * GROW_FACTOR) {
             elements = new Object[INITIAL_CAPACITY];
+        } else {
+            for (int i = 0; i < elements.length; i++) {
+                elements[i] = null;
+            }
         }
         size = 0;
     }

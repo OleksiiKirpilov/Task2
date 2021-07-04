@@ -90,8 +90,6 @@ public class ListImpl implements List {
         }
     }
 
-    public enum EmptyObject { INSTANCE }
-
     @Override
     public void addFirst(Object element) {
         Node newNode = new Node(null, element, firstNode);
@@ -170,7 +168,7 @@ public class ListImpl implements List {
     @Override
     public Object getFirst() {
         if (firstNode == null){
-            throw new NoSuchElementException();
+            return null;
         }
         return firstNode.element;
     }
@@ -178,7 +176,7 @@ public class ListImpl implements List {
     @Override
     public Object getLast() {
         if (lastNode == null){
-            throw new NoSuchElementException();
+            return null;
         }
         return lastNode.element;
     }
@@ -186,7 +184,7 @@ public class ListImpl implements List {
     @Override
     public Object search(Object element) {
         Node n = findByValue(element);
-        return (n == null) ? EmptyObject.INSTANCE : n.element;
+        return (n == null) ? null : n.element;
     }
 
     @Override
