@@ -140,7 +140,7 @@ public class ListImpl implements List {
 
     private Node getPrevNode(Node p) {
         Node n = firstNode;
-        while (n.next != p) {
+        while (n != null && n.next != p) {
             n = n.next;
         }
         return n;
