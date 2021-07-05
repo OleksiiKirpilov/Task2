@@ -112,7 +112,10 @@ public class ArrayImpl implements Array {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-        System.arraycopy(elements, index + 1, elements, index, --size - index);
+        if (index != size - 1) {
+            System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        }
+        elements[--size] = null;
     }
 
     @Override
@@ -121,11 +124,11 @@ public class ArrayImpl implements Array {
             return "[]";
         }
         StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < size; i++) {
+        int i = 0;
+        for (; i < size - 1; i++) {
             sb.append(elements[i]).append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append(']');
+        sb.append(elements[i]).append(']');
         return sb.toString();
     }
 
