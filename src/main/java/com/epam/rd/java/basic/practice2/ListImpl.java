@@ -131,13 +131,16 @@ public class ListImpl implements List {
         lastNode.element = null;
         lastNode.next = null;
         lastNode = prev;
-        prev.next = null;
+        if (prev == null)
+            firstNode = null;
+        else
+            prev.next = null;
         size--;
     }
 
     private Node getPrevNode(Node p) {
         Node n = firstNode;
-        while (n != null && n.next != p) {
+        while (n.next != p) {
             n = n.next;
         }
         return n;
@@ -146,7 +149,11 @@ public class ListImpl implements List {
     private void unlink(Node x) {
         Node next = x.next;
         Node prev = getPrevNode(x);
-        prev.next = next;
+        if (prev == null) {
+            firstNode = next;
+        } else {
+            prev.next = next;
+        }
         if (next == null) {
             lastNode = prev;
         } else {
