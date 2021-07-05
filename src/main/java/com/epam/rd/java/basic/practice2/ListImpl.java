@@ -16,7 +16,6 @@ public class ListImpl implements List {
             Node next = n.next;
             n.element = null;
             n.next = null;
-            n.prev = null;
             n = next;
         }
         firstNode = lastNode = null;
@@ -78,11 +77,9 @@ public class ListImpl implements List {
     private static class Node {
 
         Object element;
-        Node prev;
         Node next;
 
-        public Node(Node prev, Object element, Node next) {
-            this.prev = prev;
+        public Node(Object element, Node next) {
             this.element = element;
             this.next = next;
         }
@@ -90,11 +87,9 @@ public class ListImpl implements List {
 
     @Override
     public void addFirst(Object element) {
-        Node newNode = new Node(null, element, firstNode);
+        Node newNode = new Node(element, firstNode);
         if (firstNode == null) {
             lastNode = newNode;
-        } else {
-            firstNode.prev = newNode;
         }
         firstNode = newNode;
         size++;
@@ -102,7 +97,7 @@ public class ListImpl implements List {
 
     @Override
     public void addLast(Object element) {
-        Node newNode = new Node(lastNode, element, null);
+        Node newNode = new Node(element, null);
         if (lastNode == null) {
             firstNode = newNode;
         } else {
@@ -121,10 +116,9 @@ public class ListImpl implements List {
         firstNode.element = null;
         firstNode.next = null;
         firstNode = next;
-        if (next == null)
+        if (next == null) {
             lastNode = null;
-        else
-            next.prev = null;
+        }
         size--;
     }
 
@@ -133,30 +127,29 @@ public class ListImpl implements List {
         if (lastNode == null) {
             throw new NoSuchElementException();
         }
-        Node prev = lastNode.prev;
+        Node prev = getPrevNode(lastNode);
         lastNode.element = null;
         lastNode.next = null;
         lastNode = prev;
-        if (prev == null)
-            firstNode = null;
-        else
-            prev.next = null;
+        prev.next = null;
         size--;
+    }
+
+    private Node getPrevNode(Node p) {
+        Node n = firstNode;
+        while (n.next != p) {
+            n = n.next;
+        }
+        return n;
     }
 
     private void unlink(Node x) {
         Node next = x.next;
-        Node prev = x.prev;
-        if (prev == null) {
-            firstNode = next;
-        } else {
-            prev.next = next;
-            x.prev = null;
-        }
+        Node prev = getPrevNode(x);
+        prev.next = next;
         if (next == null) {
             lastNode = prev;
         } else {
-            next.prev = prev;
             x.next = null;
         }
         x.element = null;
@@ -235,11 +228,12 @@ public class ListImpl implements List {
         l2.clear();
         System.out.println("l2.clear() = " + l2);
         // size() method
+        System.out.println("l1 = " + l1);
         System.out.println("l1.size() = " + l1.size());
         // getFirst() method
-        System.out.println("l1.getFirst(1) = " + l1.getFirst());
+        System.out.println("l1.getFirst() = " + l1.getFirst());
         // getLast() method
-        System.out.println("l1.getFirst(1) = " + l1.getFirst());
+        System.out.println("l1.getFirst() = " + l1.getFirst());
         // search() method doesn't make any sense
         System.out.println("l1.search(null) = " + l1.search(null));
         // remove() method
