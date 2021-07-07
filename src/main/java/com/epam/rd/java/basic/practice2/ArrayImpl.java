@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class ArrayImpl implements Array {
 
-    Object[] elements;
+    private Object[] elements;
     private int size = 0;
     private static final float GROW_FACTOR = 1.5f;
     private static final int INITIAL_CAPACITY = 10;
@@ -97,11 +97,11 @@ public class ArrayImpl implements Array {
 
     @Override
     public int indexOf(Object element) {
-        for (int cursor = 0; cursor < size; ++cursor) {
-            Object e = elements[cursor];
+        for (int i = 0; i < size; ++i) {
+            Object e = elements[i];
             if ((element == null && e == null)
                     || (element != null && element.equals(e))) {
-                return cursor;
+                return i;
             }
         }
         return -1;
@@ -133,7 +133,7 @@ public class ArrayImpl implements Array {
     }
 
     private void grow() {
-        int newSize = (size > 2) ? (int) (size * GROW_FACTOR) : 3;
+        int newSize = (int) (size * GROW_FACTOR + 1);
         Object[] newElements = new Object[newSize];
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;

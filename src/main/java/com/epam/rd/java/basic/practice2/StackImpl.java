@@ -3,22 +3,23 @@ package com.epam.rd.java.basic.practice2;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+
 public class StackImpl implements Stack {
 
-    private final ArrayImpl array;
+    private final Array stack;
 
     public StackImpl() {
-        array = new ArrayImpl();
+        stack = new ArrayImpl();
     }
 
     @Override
     public void clear() {
-        array.clear();
+        stack.clear();
     }
 
     @Override
     public int size() {
-        return array.size();
+        return stack.size();
     }
 
     public Iterator<Object> iterator() {
@@ -39,14 +40,14 @@ public class StackImpl implements Stack {
             if (cursor == 0) {
                 throw new NoSuchElementException();
             }
-            return array.elements[--cursor];
+            return stack.get(--cursor);
         }
 
     }
 
     @Override
     public void push(Object element) {
-        array.add(element);
+        stack.add(element);
     }
 
     @Override
@@ -55,19 +56,19 @@ public class StackImpl implements Stack {
             return null;
         }
         Object value = top();
-        array.remove(size() - 1);
+        stack.remove(size() - 1);
         return value;
     }
 
     @Override
     public Object top() {
         int index = size() - 1;
-        return (index < 0) ? null : array.get(index);
+        return (index < 0) ? null : stack.get(index);
     }
 
     @Override
     public String toString() {
-        return array.toString();
+        return stack.toString();
     }
 
     public static void main(String[] args) {

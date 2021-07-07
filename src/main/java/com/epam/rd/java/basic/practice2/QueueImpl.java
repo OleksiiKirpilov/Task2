@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class QueueImpl implements Queue {
 
-    private final ListImpl queue;
+    private final List queue;
 
     public QueueImpl() {
         queue = new ListImpl();
