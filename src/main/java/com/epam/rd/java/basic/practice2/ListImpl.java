@@ -3,6 +3,7 @@ package com.epam.rd.java.basic.practice2;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+
 public class ListImpl implements List {
 
     private int size = 0;
@@ -165,18 +166,12 @@ public class ListImpl implements List {
 
     @Override
     public Object getFirst() {
-        if (firstNode == null) {
-            return null;
-        }
-        return firstNode.element;
+        return (firstNode == null) ? null : firstNode.element;
     }
 
     @Override
     public Object getLast() {
-        if (lastNode == null) {
-            return null;
-        }
-        return lastNode.element;
+        return (lastNode == null) ? null : lastNode.element;
     }
 
     @Override
@@ -191,7 +186,11 @@ public class ListImpl implements List {
         if (n == null) {
             return false;
         }
-        unlink(n);
+        if (n == firstNode) {
+            removeFirst();
+        } else {
+            unlink(n);
+        }
         return true;
     }
 
@@ -240,7 +239,7 @@ public class ListImpl implements List {
         // getFirst() method
         System.out.println("l1.getFirst() = " + l1.getFirst());
         // getLast() method
-        System.out.println("l1.getFirst() = " + l1.getFirst());
+        System.out.println("l1.getLast() = " + l1.getLast());
         // search() method doesn't make any sense
         System.out.println("l1.search(null) = " + l1.search(null));
         // remove() method

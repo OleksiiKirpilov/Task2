@@ -2,6 +2,7 @@ package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
 
+
 public class QueueImpl implements Queue {
 
     private final List queue;
@@ -31,7 +32,7 @@ public class QueueImpl implements Queue {
 
     @Override
     public Object dequeue() {
-        Object val = queue.getFirst();
+        Object val = top();
         if (size() > 0) {
             queue.removeFirst();
         }
