@@ -77,10 +77,10 @@ public class ListImpl implements List {
 
     private static class Node {
 
-        Object element;
-        Node next;
+        private Object element;
+        private Node next;
 
-        public Node(Object element, Node next) {
+        private Node(Object element, Node next) {
             this.element = element;
             this.next = next;
         }
